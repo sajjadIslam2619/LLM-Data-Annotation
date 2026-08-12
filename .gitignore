@@ -216,3 +216,10 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Ignore all CSV and Excel files
+*.csv
+*.xlsx
+
+# Ignore temporary Excel lock files
+~$*
