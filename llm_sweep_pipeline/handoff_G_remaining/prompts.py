@@ -32,7 +32,7 @@ FEW_SHOT_EXAMPLES = [
 
 # Label-flipping variants (arXiv:2307.05052, Liu/Xu/Li et al. -- "Towards
 # Understanding In-Context Learning with Contrastive Demonstrations and
-# Saliency Maps"). Sajjad flagged this paper: they show that giving few-shot
+# Saliency Maps"). The project lead flagged this paper: they show that giving few-shot
 # demonstrations deliberately WRONG labels significantly degrades ICL
 # performance in large LLMs but barely affects small ones -- a way to test
 # whether a model is actually using demonstration labels or just leaning on
@@ -68,8 +68,8 @@ def _base_instructions() -> str:
 
 # Standardized output-format instruction, applied consistently across variants
 # so every response is parsed the same way. NOT added to:
-#   - Variant D (Sajjad's official "First version" email -- must stay byte-for-byte
-#     unchanged, he explicitly said not to discard/alter it)
+#   - Variant D (the project lead's official "First version" email -- must stay byte-for-byte
+#     unchanged, they explicitly said not to discard/alter it)
 #   - Variant E / G (already have their own, richer reasoning+format instructions)
 #   - Variant H (intentionally kept minimal/unscaffolded -- see variant_h below)
 OUTPUT_FORMAT_ADDENDUM = (
@@ -112,7 +112,7 @@ def variant_b_short_defs() -> tuple[str, str]:
 def _long_defs_core() -> str:
     """Shared by variant_c (which adds the format addendum) and variant_d
     (which must NOT get the addendum, to stay byte-for-byte identical to
-    Sajjad's official 'First version' email)."""
+    the project lead's official 'First version' email)."""
     defs = "\n\n".join(f"{label}:\n{LONG_DEFINITIONS[label]}" for label in LABELS)
     return f"{_base_instructions()}\n\nLabels and detailed definitions:\n\n{defs}"
 
@@ -124,10 +124,10 @@ def variant_c_long_defs() -> tuple[str, str]:
 
 
 def variant_d_few_shot() -> tuple[str, str]:
-    """This is Sajjad's official 'First version' prompt, sent verbatim via
+    """This is the project lead's official 'First version' prompt, sent verbatim via
     email. DO NOT add the output-format addendum or otherwise edit this --
-    he explicitly asked for it to be preserved unchanged. (Variant G is
-    where his requested reasoning + output format additions go.)"""
+    they explicitly asked for it to be preserved unchanged. (Variant G is
+    where their requested reasoning + output format additions go.)"""
     system_base = _long_defs_core()
     examples_text = "\n".join(
         f'Tweet: "{tweet}"\nLabel: {label}\n' for tweet, label in FEW_SHOT_EXAMPLES
@@ -153,7 +153,7 @@ def _few_shot_variant(examples: list[tuple[str, str]]) -> tuple[str, str]:
 def variant_i_label_flipped_random() -> tuple[str, str]:
     """Variant D's exact 3 examples, each reassigned to a different, arbitrary
     wrong label. Replicates the label-flipping experiment from arXiv:2307.05052
-    (Sajjad's suggestion): compare against Variant D to see how much accuracy
+    (the project lead's suggestion): compare against Variant D to see how much accuracy
     degrades when demonstration labels are wrong but plausible-looking."""
     return _few_shot_variant(FEW_SHOT_EXAMPLES_FLIPPED_RANDOM)
 
@@ -193,7 +193,7 @@ def variant_k_complementary_explanations() -> tuple[str, str]:
 
 
 def variant_h_reviewer_matched(reasoning_word_limit: int = None) -> tuple[str, str]:
-    """Per Sajjad's original intent (not the accuracy-maximizing ablation
+    """Per the project lead's original intent (not the accuracy-maximizing ablation
     goal of variants A-G): give the AI roughly the same information the
     human reviewers had -- short definitions matching the original SME
     instruction sheet -- with NO few-shot examples.
@@ -234,12 +234,12 @@ def variant_h_reviewer_matched_with_reasoning() -> tuple[str, str]:
 
 
 def variant_g_official_reasoning_format() -> tuple[str, str]:
-    """This is Sajjad's exact request from his email: take the 'First
+    """This is the project lead's exact request from their email: take the 'First
     version' prompt (which is identical to variant_d_few_shot -- same
     definitions, same 3 examples) and add explicit output format +
     reasoning instructions on top, WITHOUT changing the original text.
 
-    Do not edit variant_d_few_shot() itself -- Sajjad said not to discard
+    Do not edit variant_d_few_shot() itself -- the project lead said not to discard
     the previous prompt, so it needs to stay intact and available on its
     own for comparison.
     """
