@@ -29,7 +29,20 @@ Some analyses consolidate L6/L7 with L1 (or L7 into L6). See `label_consolidatio
 ## LLMs in the merged tables
 
 - **Open-source:** Llama3.1-8B, Hermes3-8B, Qwen2.5-7B  
-- **Hosted:** GPT-5.4-mini, GPT-5.6-Terra, Claude-Opus-5  
+- **Hosted:** GPT-5.4-mini, GPT-5.6-Terra, Claude-Opus-5
+
+## Paper Preprint (Accepted in IEEE Big Data 2026)
+```bibtex
+@misc{islam2026veteransmentalhealthcrisis,
+      title={Veterans' Mental Health Crisis Severity Annotation: Do LLMs Agree More Than Human Experts?}, 
+      author={K M Sajjadul Islam and Pranav Yaramalla and Nadiyah Johnson and Mark Flower and Praveen Madiraju and Zeno Franco},
+      year={2026},
+      eprint={2611.10048},
+      archivePrefix={arXiv},
+      primaryClass={cs.AI},
+      url={https://arxiv.org/abs/2611.10048}, 
+}
+```
 
 ## License
 
